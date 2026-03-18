@@ -45,6 +45,7 @@ Essa base foi essencial para a evolução do projeto e permitiu avançar para um
 ### 🔹 Evolução e Refinamento (Eliabe)
 
 A partir dessa base sólida, o modelo foi evoluído com foco em aproximar o banco de um cenário real de empresa, com melhorias estruturais, de segurança e de regras de negócio.
+
 🔹 Melhorias Implementadas
 
 Workflow de processo: controle de status com regras de transição (máquina de estados), evitando saltos indevidos no fluxo.
