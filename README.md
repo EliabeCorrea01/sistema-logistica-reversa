@@ -63,33 +63,38 @@ SLA no banco: identificação automática de prazos (normal, alerta, atraso) dir
 Organização: separação por camadas (schema, seed, relatórios, documentação) e melhoria da estrutura geral.
 
 ---
+## 🗂️ Estrutura do Projeto
 
-## 📁 Estrutura do Projeto
-
-```text
 database/
-├── 01_schema/
-│   └── schema_consolidado.sql
-├── 02_seed/
-│   └── seed.sql
-├── 03_legacy_test_data/
-│   ├── dados_teste_legacy.sql
-│   └── inserts_teste_legacy.sql
-├── 04_reports/
-│   └── relatorios.sql
-└── legacy_modelos/
+ ├── 01_schema/
+ │    └── schema_consolidado.sql
+ │
+ ├── 02_seed/
+ │    └── seed.sql
+ │
+ ├── 03_reports/
+ │    └── relatorios.sql
+ │
+ └── legacy_modelos/
+      ├── dados_teste_legacy.sql
+      └── inserts_teste_legacy.sql
 
 docs/
-├── 00_estrutura_recomendada.docx
-├── 01_descricao_projeto.docx
-├── 02_quinzenas.docx
-└── 03_fluxo_processo_atual.docx
+ ├── 00_estrutura_recomendada.docx
+ ├── 01_descricao_projeto.docx
+ ├── 02_quinzenas.docx
+ └── 03_fluxo_processo_atual.docx
 
 diagramas/
-└── diagrama_atual.png
-```
+ └── diagrama_er.png
+ 
+ ### 📌 Observações
 
+- A pasta **legacy_modelos** contém scripts antigos utilizados durante as primeiras versões do projeto, mantidos apenas para referência histórica.
+- A estrutura atual do banco está centralizada nos arquivos de **schema**, **seed** e **relatórios**.
+- A pasta **docs** reúne a documentação acadêmica e descritiva do projeto.
 ---
+
 
 ## 🗄️ Modelagem do Banco
 
