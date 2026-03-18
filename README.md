@@ -1,220 +1,163 @@
-# Sistema de Logística Reversa de Peças
+Sistema de Logística Reversa de Peças
 
-Projeto desenvolvido na disciplina **Projeto Integrador em Computação I**, com foco na modelagem e implementação de um banco de dados relacional em PostgreSQL para controle de devoluções de peças.
+Projeto desenvolvido na disciplina Projeto Integrador em Computação I, com foco na modelagem e implementação de um banco de dados relacional em PostgreSQL para controle de devoluções de peças.
 
----
+🎯 Objetivo
 
-## 🎯 Objetivo
+Modelar e implementar uma base de dados capaz de suportar o processo de logística reversa com:
 
-Estruturar e automatizar o processo de logística reversa, permitindo:
+controle de devoluções
 
-* controle completo das devoluções
-* rastreabilidade de todas as etapas
-* auditoria de alterações
-* controle de prazos (SLA)
-* geração de relatórios gerenciais
+rastreabilidade de etapas
 
----
+auditoria de alterações
 
-## ⚙️ Tecnologias Utilizadas
+controle de prazos (SLA)
 
-* PostgreSQL
-* SQL / PLpgSQL
-* pgAdmin
-* Modelagem Entidade-Relacionamento (ER)
+suporte à análise gerencial
 
----
+🧠 Contexto e Evolução
 
-## 🧠 Evolução do Projeto
+O projeto evoluiu de um modelo conceitual bem estruturado para uma base com características de sistema real, incorporando regras de negócio diretamente no banco.
 
-Este projeto passou por uma evolução significativa ao longo do desenvolvimento, saindo de um modelo conceitual bem estruturado para uma base mais próxima de sistemas utilizados em ambiente corporativo.
+🔹 Base Inicial (Samuel)
 
-### 🔹 Base Inicial (Samuel)
+A modelagem inicial foi desenvolvida pelo Samuel, com excelente qualidade conceitual, contemplando:
 
-A estrutura inicial do banco foi desenvolvida pelo Samuel, com excelente qualidade conceitual.  
-O modelo já contemplava de forma organizada:
+definição das entidades principais
 
-- definição das principais entidades do sistema
-- estrutura inicial das devoluções
-- organização consistente dos dados
+estrutura inicial de devoluções
 
-Essa base foi essencial para a evolução do projeto e permitiu avançar para um nível mais técnico e aplicado.
+organização consistente dos dados
 
----
+Essa base foi essencial para a evolução do projeto.
 
-### 🔹 Evolução e Refinamento (Eliabe)
+🔹 Evolução e Refinamento (Eliabe)
 
-A partir dessa base sólida, o modelo foi evoluído com foco em aproximar o banco de um cenário real de empresa, com melhorias estruturais, de segurança e de regras de negócio.
+A partir dessa base, foram implementadas melhorias com foco em controle de processo, integridade de dados e segurança.
 
-🔹 Melhorias Implementadas
+🏗️ Processo e Workflow
 
-Workflow de processo: controle de status com regras de transição (máquina de estados), evitando saltos indevidos no fluxo.
+implementação de máquina de estados para controle de status
 
-Rastreabilidade: histórico completo de status com data e usuário.
+definição de transições válidas entre etapas
 
-Auditoria: logs automáticos com registro de alterações (antes/depois), garantindo integridade dos dados.
+impedimento de saltos indevidos no fluxo
 
-Validação de dados: uso de domínios para garantir formato correto (ex: CNPJ e e-mail).
+histórico completo de status (data + usuário)
 
-Segurança: controle de acesso por papéis e bloqueio após tentativas inválidas.
+🔐 Segurança e Integridade
 
-SLA no banco: identificação automática de prazos (normal, alerta, atraso) diretamente nas consultas.
+validação de dados via domínios (CNPJ, e-mail)
 
-Organização: separação por camadas (schema, seed, relatórios, documentação) e melhoria da estrutura geral.
+controle de acesso baseado em papéis
 
----
-## 🗂️ Estrutura do Projeto
+bloqueio de usuários após tentativas inválidas
+
+📊 Auditoria
+
+event log para registro de eventos relevantes
+
+logs automáticos com valores antes/depois
+
+proteção contra alteração/exclusão dos registros
+
+⏱️ SLA (Regras de Negócio)
+
+implementação de regras de prazo no banco
+
+classificação automática:
+
+dentro do prazo
+
+alerta
+
+crítico
+
+retorno direto nas consultas SQL
+
+📈 Organização
+
+separação por camadas:
+
+schema
+
+seed
+
+reports
+
+docs
+
+estrutura preparada para integração com aplicações futuras
+
+🗂️ Estrutura do Projeto
 
 database/
- ├── 01_schema/
- │    └── schema_consolidado.sql
- │
- ├── 02_seed/
- │    └── seed.sql
- │
- ├── 03_reports/
- │    └── relatorios.sql
- │
- └── legacy_modelos/
-      ├── dados_teste_legacy.sql
-      └── inserts_teste_legacy.sql
+├── 01_schema/
+│  └── schema_consolidado.sql
+│
+├── 02_seed/
+│  └── seed.sql
+│
+├── 03_reports/
+│  └── relatorios.sql
+│
+└── legacy_modelos/
+   ├── dados_teste_legacy.sql
+   └── inserts_teste_legacy.sql
 
 docs/
- ├── 00_estrutura_recomendada.docx
- ├── 01_descricao_projeto.docx
- ├── 02_quinzenas.docx
- └── 03_fluxo_processo_atual.docx
+├── 00_estrutura_recomendada.docx
+├── 01_descricao_projeto.docx
+├── 02_quinzenas.docx
+└── 03_fluxo_processo_atual.docx
 
 diagramas/
- └── diagrama_er.png
- 
- ### 📌 Observações
+└── diagrama_er.png
 
-- A pasta **legacy_modelos** contém scripts antigos utilizados durante as primeiras versões do projeto, mantidos apenas para referência histórica.
-- A estrutura atual do banco está centralizada nos arquivos de **schema**, **seed** e **relatórios**.
-- A pasta **docs** reúne a documentação acadêmica e descritiva do projeto.
----
+⚙️ Tecnologias
 
+PostgreSQL
 
-## 🗄️ Modelagem do Banco
+SQL
 
-O banco foi estruturado em módulos:
+🚀 Execução
 
-### 🔹 Núcleo do processo
+Criar o banco de dados no PostgreSQL
 
-* devolucoes
-* devolucao_itens
-* historico_status
-* status_transicoes
+Executar o schema
+database/01_schema/schema_consolidado.sql
 
-### 🔹 Cadastros
+Executar o seed
+database/02_seed/seed.sql
 
-* usuarios
-* papeis
-* unidades_empresa
-* usuarios_unidade
-* itens
-* notas_fiscais
-* motivos
+Executar os relatórios
+database/03_reports/relatorios.sql
 
-### 🔹 Controle e governança
+📊 Funcionalidades
 
-* sla_config
-* evento_log
-* logs_alteracao
-* evidencias
-* xml_importacao
+gestão de devoluções
 
----
+controle de itens
 
-## 🔄 Workflow do Processo
+workflow de status
 
-```text
-ABERTO → EM_ANALISE → AGUARDANDO_ENVIO → ENVIADO_FABRICA → ENCERRADO
-```
+auditoria de alterações
 
-* Transições controladas por `status_transicoes`
-* Histórico registrado em `historico_status`
-* Validações realizadas por triggers
+controle de SLA
 
----
+relatórios gerenciais
 
-## ⏱️ SLA
+📌 Considerações Técnicas
 
-O sistema implementa controle de prazo com base em:
+regras de negócio implementadas no banco (redução de dependência da aplicação)
 
-* motivo da devolução
-* status atual
-* regras definidas em `sla_config`
+foco em integridade e consistência dos dados
 
----
+modelo preparado para escalabilidade e integração futura
 
-## 📊 Relatórios
+👥 Autores
 
-Arquivo:
+Samuel — modelagem conceitual inicial
 
-```text
-database/04_reports/relatorios.sql
-```
-
-Principais análises:
-
-* devoluções por status
-* devoluções por motivo
-* devoluções por responsável
-* devoluções por unidade
-* análise de SLA
-* painel consolidado
-
-View principal:
-
-```text
-vw_painel_devolucoes
-```
-
----
-
-## ▶️ Como Executar
-
-1. Criar banco no PostgreSQL
-
-2. Executar o schema:
-
-```sql
-\i database/01_schema/schema_consolidado.sql
-```
-
-3. Executar o seed:
-
-```sql
-\i database/02_seed/seed.sql
-```
-
-4. Executar os relatórios:
-
-```sql
-\i database/04_reports/relatorios.sql
-```
-
----
-
-## 📌 Diferenciais do Projeto
-
-* Estrutura próxima de ambiente real corporativo
-* Separação por camadas (schema, seed, relatórios)
-* Controle de integridade via banco
-* Auditoria e rastreabilidade completas
-* Organização profissional de diretórios
-
----
-
-## 🧪 Status
-
-✔ Modelagem concluída
-✔ Banco implementado
-✔ Workflow funcional
-✔ SLA implementado
-✔ Relatórios prontos
-✔ Documentação completa
-
----
+Eliabe — evolução estrutural, segurança e regras de negócio
