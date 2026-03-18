@@ -1,163 +1,169 @@
-Sistema de Logística Reversa de Peças
+  # 🔄 Sistema de Logística Reversa de Peças
 
-Projeto desenvolvido na disciplina Projeto Integrador em Computação I, com foco na modelagem e implementação de um banco de dados relacional em PostgreSQL para controle de devoluções de peças.
+![Status](https://img.shields.io/badge/status-em%20desenvolvimento-blue)
+![Database](https://img.shields.io/badge/database-PostgreSQL-blue)
+![SQL](https://img.shields.io/badge/language-SQL-lightgrey)
+![Projeto Acadêmico](https://img.shields.io/badge/projeto-UNIVESP-orange)
+![Licença](https://img.shields.io/badge/license-academic-green)
 
-🎯 Objetivo
+Projeto desenvolvido na disciplina **Projeto Integrador em Computação I (UNIVESP)** com foco na construção de um **banco de dados relacional robusto** para gerenciamento completo de logística reversa de peças.
 
-Modelar e implementar uma base de dados capaz de suportar o processo de logística reversa com:
+---
 
-controle de devoluções
+## 🎯 Visão Geral
 
-rastreabilidade de etapas
+Sistema projetado para simular um ambiente corporativo real, onde o banco de dados atua como **núcleo inteligente do sistema**, sendo responsável por:
 
-auditoria de alterações
+- Controle de devoluções
+- Gestão de workflow
+- Auditoria completa
+- Monitoramento de SLA
+- Garantia de integridade dos dados
 
-controle de prazos (SLA)
+---
 
-suporte à análise gerencial
+## 🧠 Diferenciais Técnicos
 
-🧠 Contexto e Evolução
+✔ Regras de negócio implementadas diretamente no banco  
+✔ Máquina de estados para controle de fluxo  
+✔ Auditoria automatizada (before/after)  
+✔ Controle de SLA em tempo real  
+✔ Estrutura preparada para integração com aplicações  
 
-O projeto evoluiu de um modelo conceitual bem estruturado para uma base com características de sistema real, incorporando regras de negócio diretamente no banco.
+---
 
-🔹 Base Inicial (Samuel)
+## 🏗️ Arquitetura
 
-A modelagem inicial foi desenvolvida pelo Samuel, com excelente qualidade conceitual, contemplando:
+O projeto segue separação em camadas:
 
-definição das entidades principais
+- **Schema** → estrutura do banco  
+- **Seed** → dados iniciais  
+- **Reports** → consultas analíticas  
+- **Docs** → documentação do projeto  
 
-estrutura inicial de devoluções
+---
 
-organização consistente dos dados
+## 🔄 Workflow (Máquina de Estados)
 
-Essa base foi essencial para a evolução do projeto.
+Fluxo controlado diretamente no banco:
 
-🔹 Evolução e Refinamento (Eliabe)
 
-A partir dessa base, foram implementadas melhorias com foco em controle de processo, integridade de dados e segurança.
+REGISTRADA → EM_ANALISE → APROVADA → RESSARCIDA → FINALIZADA
+↘ REJEITADA
 
-🏗️ Processo e Workflow
 
-implementação de máquina de estados para controle de status
+### Regras:
+- Não permite pular etapas
+- Histórico automático de alterações
+- Validação de transições
 
-definição de transições válidas entre etapas
+---
 
-impedimento de saltos indevidos no fluxo
+## 🔐 Segurança
 
-histórico completo de status (data + usuário)
+- Validação via domínios (CNPJ, e-mail)
+- Constraints de integridade
+- Controle de acesso por papéis (RBAC)
+- Proteção contra alterações indevidas
 
-🔐 Segurança e Integridade
+---
 
-validação de dados via domínios (CNPJ, e-mail)
+## 📊 Auditoria
 
-controle de acesso baseado em papéis
+- Registro automático de eventos
+- Valores antes/depois
+- Usuário responsável
+- Data/hora da operação
+- Logs imutáveis
 
-bloqueio de usuários após tentativas inválidas
+---
 
-📊 Auditoria
+## ⏱️ SLA
 
-event log para registro de eventos relevantes
+Classificação automática:
 
-logs automáticos com valores antes/depois
+- 🟢 Dentro do prazo  
+- 🟡 Alerta  
+- 🔴 Crítico  
 
-proteção contra alteração/exclusão dos registros
+Consulta direta via SQL.
 
-⏱️ SLA (Regras de Negócio)
+---
 
-implementação de regras de prazo no banco
+## 📈 Funcionalidades
 
-classificação automática:
+- Gestão de devoluções
+- Controle de itens e vendedores
+- Histórico de status
+- Auditoria completa
+- Monitoramento de SLA
+- Relatórios gerenciais
 
-dentro do prazo
+---
 
-alerta
+## 🗂️ Estrutura do Projeto
 
-crítico
-
-retorno direto nas consultas SQL
-
-📈 Organização
-
-separação por camadas:
-
-schema
-
-seed
-
-reports
-
-docs
-
-estrutura preparada para integração com aplicações futuras
-
-🗂️ Estrutura do Projeto
 
 database/
 ├── 01_schema/
-│  └── schema_consolidado.sql
-│
 ├── 02_seed/
-│  └── seed.sql
-│
 ├── 03_reports/
-│  └── relatorios.sql
-│
 └── legacy_modelos/
-   ├── dados_teste_legacy.sql
-   └── inserts_teste_legacy.sql
 
 docs/
-├── 00_estrutura_recomendada.docx
-├── 01_descricao_projeto.docx
-├── 02_quinzenas.docx
-└── 03_fluxo_processo_atual.docx
-
 diagramas/
-└── diagrama_er.png
 
-⚙️ Tecnologias
 
-PostgreSQL
+---
 
-SQL
+## ⚙️ Tecnologias
 
-🚀 Execução
+- PostgreSQL
+- SQL
 
-Criar o banco de dados no PostgreSQL
+---
 
-Executar o schema
-database/01_schema/schema_consolidado.sql
+## 🚀 Como Executar
 
-Executar o seed
-database/02_seed/seed.sql
+```sql
+CREATE DATABASE logistica_reversa;
+\c logistica_reversa
 
-Executar os relatórios
-database/03_reports/relatorios.sql
+\i database/01_schema/schema_consolidado.sql
+\i database/02_seed/seed.sql
+\i database/03_reports/relatorios.sql
+📊 Exemplos
+SLA crítico
+SELECT * FROM relatorio_sla WHERE status_sla = 'CRITICO';
+Histórico
+SELECT * FROM historico_status WHERE devolucao_id = 1;
+📌 Considerações
 
-📊 Funcionalidades
+Projeto com foco em:
 
-gestão de devoluções
+Integridade de dados
 
-controle de itens
+Controle de processo
 
-workflow de status
+Escalabilidade
 
-auditoria de alterações
+Aplicação prática de banco de dados
 
-controle de SLA
+🚀 Roadmap
 
-relatórios gerenciais
+ API backend (Node.js ou Java)
 
-📌 Considerações Técnicas
+ Interface web
 
-regras de negócio implementadas no banco (redução de dependência da aplicação)
+ Dashboard
 
-foco em integridade e consistência dos dados
-
-modelo preparado para escalabilidade e integração futura
+ Integração com ERP
 
 👥 Autores
 
-Samuel — modelagem conceitual inicial
+Samuel — Modelagem inicial
+Eliabe Gabriel — Implementação e evolução técnica
 
-Eliabe — evolução estrutural, segurança e regras de negócio
+🧾 Licença
+
+Uso acadêmico
