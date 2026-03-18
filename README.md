@@ -27,14 +27,39 @@ Estruturar e automatizar o processo de logística reversa, permitindo:
 
 ## 🧠 Evolução do Projeto
 
-O projeto iniciou como um modelo acadêmico simples e foi evoluído para uma estrutura próxima de sistemas corporativos, incorporando:
+Este projeto passou por uma evolução significativa ao longo do desenvolvimento, saindo de um modelo conceitual bem estruturado para uma base mais próxima de sistemas utilizados em ambiente corporativo.
 
-* controle de workflow via banco
-* histórico imutável de status
-* auditoria de alterações
-* regras de negócio via triggers
-* controle de SLA
-* estrutura preparada para integração com XML
+### 🔹 Base Inicial (Samuel)
+
+A estrutura inicial do banco foi desenvolvida pelo Samuel, com excelente qualidade conceitual.  
+O modelo já contemplava de forma organizada:
+
+- definição das principais entidades do sistema
+- estrutura inicial das devoluções
+- organização consistente dos dados
+
+Essa base foi essencial para a evolução do projeto e permitiu avançar para um nível mais técnico e aplicado.
+
+---
+
+### 🔹 Evolução e Refinamento (Eliabe)
+
+A partir dessa base sólida, o modelo foi evoluído com foco em aproximar o banco de um cenário real de empresa, com melhorias estruturais, de segurança e de regras de negócio.
+🔹 Melhorias Implementadas
+
+Workflow de processo: controle de status com regras de transição (máquina de estados), evitando saltos indevidos no fluxo.
+
+Rastreabilidade: histórico completo de status com data e usuário.
+
+Auditoria: logs automáticos com registro de alterações (antes/depois), garantindo integridade dos dados.
+
+Validação de dados: uso de domínios para garantir formato correto (ex: CNPJ e e-mail).
+
+Segurança: controle de acesso por papéis e bloqueio após tentativas inválidas.
+
+SLA no banco: identificação automática de prazos (normal, alerta, atraso) diretamente nas consultas.
+
+Organização: separação por camadas (schema, seed, relatórios, documentação) e melhoria da estrutura geral.
 
 ---
 
