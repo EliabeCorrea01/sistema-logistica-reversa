@@ -1,0 +1,8 @@
+Estrutura organizada do projeto:
+- database/01_schema: schemas SQL
+- database/02_seed: carga inicial para demonstracao
+- database/03_legacy_test_data: scripts antigos de teste mantidos como referencia
+- database/04_reports: consultas e relatorios legados
+- docs: descricao do projeto, quinzenas e fluxo atual
+- diagramas: diagrama ER
+- dados_referencia: planilhas-base recebidas do grupo/empresa

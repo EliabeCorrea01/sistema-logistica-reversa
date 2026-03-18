@@ -1,0 +1,91 @@
+PROJETO: SISTEMA DE LOGÍSTICA REVERSA
+Relatório de Atividades por Quinzena
+
+
+QUINZENA 1 — Levantamento e análise do problema
+
+Nesta etapa foi realizada a análise do processo atual de devolução de peças no contexto de logística reversa. Foram identificados os principais atores envolvidos no processo, como vendedores, funcionários e supervisores.
+
+Também foram levantados os dados necessários para registrar uma devolução, incluindo número da nota fiscal, item devolvido, tipo de ocorrência e motivo da devolução.
+
+A partir dessa análise foi possível identificar as principais entidades que fariam parte do banco de dados.
+
+
+QUINZENA 2 — Modelagem do banco de dados
+
+Nesta etapa foi realizada a modelagem do banco de dados utilizando o modelo relacional.
+
+Foram definidas as seguintes entidades principais:
+
+- usuarios
+- vendedores
+- itens
+- pecas_devolucao
+- status_movimentacao
+- logs_alteracao
+- status_transicoes
+
+Também foram definidos os relacionamentos entre as tabelas e as chaves estrangeiras necessárias para garantir a integridade dos dados.
+
+Foi elaborado o diagrama entidade-relacionamento do banco de dados.
+
+
+QUINZENA 3 — Implementação do banco de dados
+
+Nesta etapa foi implementado o banco de dados no PostgreSQL utilizando o pgAdmin.
+
+Foram criadas as tabelas do sistema com suas respectivas chaves primárias e chaves estrangeiras.
+
+Também foram inseridos dados iniciais de teste, incluindo:
+
+- usuários do sistema
+- vendedores
+- itens
+- registros de devolução
+
+
+QUINZENA 4 — Implementação do workflow e auditoria
+
+Nesta etapa foi implementado o controle de fluxo de status das devoluções.
+
+Foi criada a tabela status_transicoes, responsável por definir as transições permitidas entre os diferentes status do processo.
+
+Também foi desenvolvida uma função em PL/pgSQL chamada mudar_status_devolucao, responsável por:
+
+- validar as transições de status
+- atualizar o status da devolução
+- registrar histórico de movimentações
+- registrar logs de auditoria
+
+
+QUINZENA 5 — Testes e consultas gerenciais
+
+Nesta etapa foram realizados testes de funcionamento do sistema, incluindo mudanças de status válidas e inválidas.
+
+Também foram criadas consultas SQL para geração de relatórios gerenciais, como:
+
+- devoluções por vendedor
+- tipos de ocorrência mais frequentes
+- devoluções por status
+- devoluções próximas do prazo de envio
+
+Essas consultas permitem acompanhar o andamento do processo e identificar possíveis gargalos.
+
+
+QUINZENA 6 — Organização do projeto e documentação
+
+Nesta etapa foi realizada a organização dos arquivos do projeto, incluindo:
+
+- script completo do banco de dados
+- diagrama entidade-relacionamento
+- consultas de relatórios
+- documentação do projeto
+
+Essa etapa teve como objetivo preparar o material para apresentação final.
+
+
+QUINZENA 7 — Refinamento do banco e ampliação dos relatórios
+
+Nesta etapa foram realizadas melhorias na estrutura do banco de dados para aproximar o sistema do fluxo real da empresa. Foram adicionados novos campos na tabela de devoluções, como quantidade, tipo de solução, número da nota fiscal de devolução e destino final da peça.
+
+Também foram aprimoradas as validações do workflow, a view principal de relatório e as consultas gerenciais, incluindo linha do tempo das devoluções e tempo médio de resolução.

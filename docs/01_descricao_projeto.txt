@@ -1,0 +1,128 @@
+PROJETO: SISTEMA DE LOGÍSTICA REVERSA
+Banco de Dados PostgreSQL
+
+
+1. OBJETIVO DO PROJETO
+
+Este projeto tem como objetivo desenvolver um banco de dados relacional para controle de devoluções de peças em um processo de logística reversa.
+
+O sistema permite registrar devoluções, acompanhar o status de cada item devolvido, manter histórico das movimentações, registrar auditoria das alterações e gerar relatórios gerenciais para acompanhamento do processo.
+
+
+2. PROBLEMA
+
+Em muitos processos de devolução de peças, o controle é realizado de forma manual ou em planilhas simples, o que dificulta:
+
+- rastreabilidade das devoluções
+- controle do fluxo de status
+- acompanhamento do prazo de envio para fábrica
+- auditoria de alterações
+- geração de relatórios gerenciais
+
+Dessa forma, torna-se necessário um sistema estruturado que organize essas informações de forma confiável.
+
+
+3. SOLUÇÃO PROPOSTA
+
+Foi desenvolvido um banco de dados em PostgreSQL com as seguintes funcionalidades:
+
+- cadastro de itens
+- cadastro de vendedores
+- cadastro de usuários do sistema
+- registro de devoluções de peças
+- registro de quantidade devolvida
+- registro da nota fiscal de origem e da nota fiscal de devolução
+- registro do tipo de solução do processo (troca, estorno ou sem reposição)
+- registro do destino final da peça
+- controle de workflow de status
+- histórico de movimentações
+- auditoria de alterações
+- geração de relatórios gerenciais
+
+
+4. MODELAGEM DO BANCO DE DADOS
+
+O banco de dados foi modelado utilizando o modelo relacional.
+
+As principais entidades são:
+
+ITENS
+Armazena o cadastro dos produtos que podem ser devolvidos.
+
+VENDEDORES
+Representa os responsáveis comerciais pelas vendas.
+
+USUARIOS
+Armazena os usuários do sistema responsáveis pelas alterações no processo.
+
+PECAS_DEVOLUCAO
+Tabela central do sistema. Registra cada devolução realizada, incluindo item, quantidade, nota fiscal, vendedor, tipo de ocorrência, tipo de solução, destino final e status atual.
+
+STATUS_TRANSICOES
+Define as regras de transição entre os diferentes status do processo.
+
+STATUS_MOVIMENTACAO
+Armazena o histórico completo das mudanças de status das devoluções.
+
+LOGS_ALTERACAO
+Registra alterações realizadas no sistema para fins de auditoria.
+
+EVIDENCIAS
+Permite associar múltiplas evidências a uma devolução.
+
+
+5. CONTROLE DE WORKFLOW
+
+O fluxo de status da devolução segue as seguintes etapas principais:
+
+REGISTRADA
+EM_ANALISE
+APROVADA ou REPROVADA
+AGUARDANDO_ENVIO
+ENVIADA_FABRICA
+RESSARCIDA ou FINALIZADA
+
+As transições permitidas são controladas pela tabela status_transicoes e validadas pela função mudar_status_devolucao.
+
+
+6. FUNÇÃO DE NEGÓCIO
+
+Foi criada uma função em PL/pgSQL chamada:
+
+mudar_status_devolucao()
+
+Essa função realiza:
+
+- validação das transições de status
+- validação do perfil do usuário responsável pela alteração
+- validação de observação obrigatória quando necessário
+- atualização do status da devolução
+- registro no histórico de movimentação
+- registro de auditoria
+
+
+7. RELATÓRIOS
+
+O sistema permite gerar consultas SQL para análise do processo, incluindo:
+
+- devoluções por vendedor
+- problemas mais frequentes
+- devoluções por status
+- devoluções próximas do prazo
+- linha do tempo das devoluções
+- tempo médio de resolução
+- auditoria de alterações
+
+
+8. TECNOLOGIAS UTILIZADAS
+
+- PostgreSQL
+- pgAdmin
+- SQL
+- PL/pgSQL
+- Modelagem relacional
+
+
+9. RESULTADO
+
+O banco de dados desenvolvido permite controlar de forma estruturada o processo de devolução de peças, garantindo rastreabilidade, integridade das informações e suporte para análise gerencial.
