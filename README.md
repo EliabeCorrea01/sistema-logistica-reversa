@@ -1,130 +1,189 @@
 # Sistema de Logística Reversa de Peças
 
-Projeto desenvolvido na disciplina **Projeto Integrador em Computação I**.
-
-O objetivo do sistema é controlar o processo de devolução de peças automotivas, organizando informações que normalmente são registradas em planilhas ou processos manuais.
-
-O sistema permite registrar devoluções, acompanhar o fluxo de status do processo, manter histórico das movimentações, registrar auditoria de alterações e gerar relatórios gerenciais para acompanhamento das devoluções.
+Projeto desenvolvido na disciplina **Projeto Integrador em Computação I**, com foco na modelagem e implementação de um banco de dados relacional em PostgreSQL para controle de devoluções de peças.
 
 ---
 
-# Tecnologias utilizadas
+## 🎯 Objetivo
 
-- PostgreSQL
-- SQL
-- PL/pgSQL
-- Modelagem ER
+Estruturar e automatizar o processo de logística reversa, permitindo:
+
+* controle completo das devoluções
+* rastreabilidade de todas as etapas
+* auditoria de alterações
+* controle de prazos (SLA)
+* geração de relatórios gerenciais
 
 ---
 
-# Estrutura do projeto
+## ⚙️ Tecnologias Utilizadas
 
+* PostgreSQL
+* SQL / PLpgSQL
+* pgAdmin
+* Modelagem Entidade-Relacionamento (ER)
 
+---
+
+## 🧠 Evolução do Projeto
+
+O projeto iniciou como um modelo acadêmico simples e foi evoluído para uma estrutura próxima de sistemas corporativos, incorporando:
+
+* controle de workflow via banco
+* histórico imutável de status
+* auditoria de alterações
+* regras de negócio via triggers
+* controle de SLA
+* estrutura preparada para integração com XML
+
+---
+
+## 📁 Estrutura do Projeto
+
+```text
 database/
-01_schema → estrutura do banco de dados
-02_seed → dados iniciais para demonstração
-03_legacy_test_data → scripts antigos mantidos como referência
-04_reports → consultas SQL para análise
+├── 01_schema/
+│   └── schema_consolidado_final.sql
+├── 02_seed/
+│   └── seed.sql
+├── 03_legacy_test_data/
+│   ├── dados_teste_legacy.sql
+│   └── inserts_teste_legacy.sql
+├── 04_reports/
+│   └── relatorios.sql
+└── legacy_modelos/
 
 docs/
-documentação do projeto
-fluxo do processo atual
-descrição do sistema
+├── 00_estrutura_recomendada.docx
+├── 01_descricao_projeto.docx
+├── 02_quinzenas.docx
+└── 03_fluxo_processo_atual.docx
 
 diagramas/
-diagrama entidade-relacionamento
-
-dados_referencia/
-planilhas base utilizadas no levantamento do sistema
-
+└── diagrama_atual.png
+```
 
 ---
 
-# Estrutura do banco de dados
+## 🗄️ Modelagem do Banco
 
-As principais entidades do sistema são:
+O banco foi estruturado em módulos:
 
-- **usuarios** → usuários que operam o sistema
-- **itens** → cadastro das peças
-- **notas_fiscais** → notas fiscais de origem
-- **devolucoes** → registro principal das devoluções
-- **devolucao_itens** → itens envolvidos na devolução
-- **status_devolucao** → estados do processo
-- **status_transicoes** → regras do workflow
-- **historico_status** → histórico das mudanças de status
-- **logs_alteracao** → auditoria de alterações
-- **evidencias** → arquivos anexados às devoluções
+### 🔹 Núcleo do processo
 
----
+* devolucoes
+* devolucao_itens
+* historico_status
+* status_transicoes
 
-# Workflow do processo
+### 🔹 Cadastros
 
-O fluxo básico de status do processo é:
+* usuarios
+* papeis
+* unidades_empresa
+* usuarios_unidade
+* itens
+* notas_fiscais
+* motivos
 
+### 🔹 Controle e governança
 
-ABERTO
-EM_ANALISE
-AGUARDANDO_ENVIO
-ENVIADO_FABRICA
-ENCERRADO
-
-
-As transições permitidas são controladas pela tabela **status_transicoes**.
-
-Cada alteração gera um registro em **historico_status**.
+* sla_config
+* evento_log
+* logs_alteracao
+* evidencias
+* xml_importacao
 
 ---
 
-# Relatórios
+## 🔄 Workflow do Processo
 
-O sistema possui consultas SQL para análise do processo, incluindo:
+```text
+ABERTO → EM_ANALISE → AGUARDANDO_ENVIO → ENVIADO_FABRICA → ENCERRADO
+```
 
-- devoluções por status
-- devoluções por motivo
-- devoluções próximas do prazo
-- histórico de movimentação
-- painel consolidado de devoluções
+* Transições controladas por `status_transicoes`
+* Histórico registrado em `historico_status`
+* Validações realizadas por triggers
 
-A view principal do sistema é:
+---
 
+## ⏱️ SLA
 
+O sistema implementa controle de prazo com base em:
+
+* motivo da devolução
+* status atual
+* regras definidas em `sla_config`
+
+---
+
+## 📊 Relatórios
+
+Arquivo:
+
+```text
+database/04_reports/relatorios.sql
+```
+
+Principais análises:
+
+* devoluções por status
+* devoluções por motivo
+* devoluções por responsável
+* devoluções por unidade
+* análise de SLA
+* painel consolidado
+
+View principal:
+
+```text
 vw_painel_devolucoes
-
-
-Ela consolida informações da devolução e calcula automaticamente o SLA.
+```
 
 ---
 
-# Como executar o projeto
+## ▶️ Como Executar
 
-1️⃣ Criar o banco PostgreSQL
+1. Criar banco no PostgreSQL
 
-2️⃣ Executar o script de estrutura:
+2. Executar o schema:
 
+```sql
+\i database/01_schema/schema_consolidado_final.sql
+```
 
-schema_consolidado.sql
+3. Executar o seed:
 
+```sql
+\i database/02_seed/seed.sql
+```
 
-3️⃣ Inserir dados de demonstração:
+4. Executar os relatórios:
 
-
-seed.sql
-
-
-4️⃣ Executar consultas de relatório:
-
-
-relatorios.sql
-
+```sql
+\i database/04_reports/relatorios.sql
+```
 
 ---
 
-# Resultado
+## 📌 Diferenciais do Projeto
 
-O banco de dados desenvolvido permite controlar o processo de devolução de peças de forma estruturada, garantindo:
+* Estrutura próxima de ambiente real corporativo
+* Separação por camadas (schema, seed, relatórios)
+* Controle de integridade via banco
+* Auditoria e rastreabilidade completas
+* Organização profissional de diretórios
 
-- rastreabilidade
-- integridade das informações
-- auditoria de alterações
-- acompanhamento de prazos
-- geração de relatórios gerenciais
+---
+
+## 🧪 Status
+
+✔ Modelagem concluída
+✔ Banco implementado
+✔ Workflow funcional
+✔ SLA implementado
+✔ Relatórios prontos
+✔ Documentação completa
+
+---
