@@ -43,7 +43,7 @@ O projeto iniciou como um modelo acadêmico simples e foi evoluído para uma est
 ```text
 database/
 ├── 01_schema/
-│   └── schema_consolidado_final.sql
+│   └── schema_consolidado.sql
 ├── 02_seed/
 │   └── seed.sql
 ├── 03_legacy_test_data/
@@ -150,7 +150,7 @@ vw_painel_devolucoes
 2. Executar o schema:
 
 ```sql
-\i database/01_schema/schema_consolidado_final.sql
+\i database/01_schema/schema_consolidado.sql
 ```
 
 3. Executar o seed:
