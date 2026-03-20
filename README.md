@@ -32,16 +32,20 @@ Sistema projetado para simular um ambiente corporativo real, onde o banco de dad
 
 ---
 
-## 🏗️ Arquitetura
+## 🧠 Arquitetura
 
-O projeto segue separação em camadas:
+- Banco relacional PostgreSQL
+- Uso de PL/pgSQL para regras de negócio
+- Estrutura modular (schema, funções, triggers)
 
-- **Schema** → estrutura do banco  
-- **Seed** → dados iniciais  
-- **Reports** → consultas analíticas  
-- **Docs** → documentação do projeto  
+## 🔄 Fluxo do Sistema
 
----
+REGISTRADA → EM_ANALISE → APROVADA → FINALIZADA
+
+## 📊 Exemplo de Consulta
+
+```sql
+SELECT * FROM pecas_devolucao WHERE status_atual = 'EM_ANALISE';
 
 ## 🔄 Workflow (Máquina de Estados)
 
